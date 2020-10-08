@@ -1,7 +1,39 @@
-import Head from 'next/head'
-import styles from '../styles/Home.module.css'
+import Head from "next/head";
+import { useState } from "react";
+import { useFormik } from "formik";
+
+import Quiz from "../components/Quiz";
+
+import styles from "../styles/App.module.css";
 
 export default function Home() {
+  const [started, setStarted] = useState(false);
+  const [formConfig, setFormConfig] = useState();
+
+  const formik = useFormik({
+    initialValues: {
+      amount: 10,
+      category: 9,
+      difficulty: "easy",
+    },
+    onSubmit: (values) => {
+      setFormConfig(values);
+      setStarted(true);
+    },
+  });
+
+  const categories = [
+    { name: "General Knowledge", id: "9" },
+    { name: "Science: Computers", id: "18" },
+    { name: "Geography", id: "22" },
+    { name: "Politics", id: "24" },
+    { name: "Entertainment: Books", id: "10" },
+    { name: "Sports", id: "21" },
+    { name: "Vehicles", id: "28" },
+    { name: "Celebrities", id: "26" },
+    { name: "Art", id: "25" },
+  ];
+
   return (
     <div className={styles.container}>
       <Head>
@@ -10,56 +42,55 @@ export default function Home() {
       </Head>
 
       <main className={styles.main}>
-        <h1 className={styles.title}>
-          Welcome to <a href="https://nextjs.org">Next.js!</a>
-        </h1>
-
-        <p className={styles.description}>
-          Get started by editing{' '}
-          <code className={styles.code}>pages/index.js</code>
-        </p>
-
-        <div className={styles.grid}>
-          <a href="https://nextjs.org/docs" className={styles.card}>
-            <h3>Documentation &rarr;</h3>
-            <p>Find in-depth information about Next.js features and API.</p>
-          </a>
-
-          <a href="https://nextjs.org/learn" className={styles.card}>
-            <h3>Learn &rarr;</h3>
-            <p>Learn about Next.js in an interactive course with quizzes!</p>
-          </a>
-
-          <a
-            href="https://github.com/vercel/next.js/tree/master/examples"
-            className={styles.card}
-          >
-            <h3>Examples &rarr;</h3>
-            <p>Discover and deploy boilerplate example Next.js projects.</p>
-          </a>
-
-          <a
-            href="https://vercel.com/import?filter=next.js&utm_source=create-next-app&utm_medium=default-template&utm_campaign=create-next-app"
-            className={styles.card}
-          >
-            <h3>Deploy &rarr;</h3>
-            <p>
-              Instantly deploy your Next.js site to a public URL with Vercel.
-            </p>
-          </a>
-        </div>
+        {started ? (
+          <Quiz {...formConfig} />
+        ) : (
+          <>
+            <h1 className={styles.title}>Let's get Quizy</h1>
+            <form onSubmit={formik.handleSubmit}>
+              <label htmlFor="amount">How many question do you want?</label>
+              <input
+                id="amount"
+                name="amount"
+                type="text"
+                onChange={formik.handleChange}
+                value={formik.values.amount}
+              />
+              <label htmlFor="category">Last Name</label>
+              <select
+                id="category"
+                name="category"
+                onChange={formik.handleChange}
+                value={formik.values.category}
+              >
+                <option key="00" value="">
+                  No Preference
+                </option>
+                {categories.map((category) => (
+                  <option key={category.id} value={category.id}>
+                    {category.name}
+                  </option>
+                ))}
+              </select>
+              <label htmlFor="difficulty">difficulty Address</label>
+              <select
+                id="difficulty"
+                name="difficulty"
+                onChange={formik.handleChange}
+                value={formik.values.difficulty}
+              >
+                <option value="">No Preference</option>
+                <option value="easy">Easy</option>
+                <option value="medium">Medium</option>
+                <option value="hard">Hard</option>
+              </select>
+              <button className={styles.button} type="submit">
+                Start
+              </button>
+            </form>
+          </>
+        )}
       </main>
-
-      <footer className={styles.footer}>
-        <a
-          href="https://vercel.com?utm_source=create-next-app&utm_medium=default-template&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Powered by{' '}
-          <img src="/vercel.svg" alt="Vercel Logo" className={styles.logo} />
-        </a>
-      </footer>
     </div>
-  )
+  );
 }
