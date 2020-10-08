@@ -1,10 +1,29 @@
 import Head from "next/head";
 import { useState } from "react";
 import { useFormik } from "formik";
+import styled from "styled-components";
 
 import Quiz from "../components/Quiz";
 
 import styles from "../styles/App.module.css";
+
+const Form = styled.form`
+  margin: 0 auto;
+  padding: 3rem 1em 1em 1em;
+
+  label {
+    display: block;
+    width: 100%;
+  }
+
+  input,
+  select {
+    width: 100%;
+    padding: 1em;
+    margin: 0.5em 0;
+  }idth: 90%;
+  }
+`;
 
 export default function Home() {
   const [started, setStarted] = useState(false);
@@ -47,16 +66,16 @@ export default function Home() {
         ) : (
           <>
             <h1 className={styles.title}>Let's get Quizy</h1>
-            <form onSubmit={formik.handleSubmit}>
+            <Form onSubmit={formik.handleSubmit}>
               <label htmlFor="amount">How many question do you want?</label>
               <input
                 id="amount"
                 name="amount"
-                type="text"
+                type="number"
                 onChange={formik.handleChange}
                 value={formik.values.amount}
               />
-              <label htmlFor="category">Last Name</label>
+              <label htmlFor="category">Category</label>
               <select
                 id="category"
                 name="category"
@@ -72,7 +91,7 @@ export default function Home() {
                   </option>
                 ))}
               </select>
-              <label htmlFor="difficulty">difficulty Address</label>
+              <label htmlFor="difficulty">Difficulty</label>
               <select
                 id="difficulty"
                 name="difficulty"
@@ -87,7 +106,7 @@ export default function Home() {
               <button className={styles.button} type="submit">
                 Start
               </button>
-            </form>
+            </Form>
           </>
         )}
       </main>

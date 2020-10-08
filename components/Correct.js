@@ -11,7 +11,7 @@ const StyledCorrect = styled.div`
   right: 0.5em;
   font-size: 1.5em;
   color: var(--bg-color);
-  background-color: #04e200;
+  background-color: var(--success-color);
   border-radius: 100%;
 `;
 

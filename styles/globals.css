@@ -3,6 +3,8 @@
   --tx-color: #222222;
   --border: #777777;
   --accent-color: #f3003d;
+  --warning-color: #f3db00;
+  --success-color: #82f300;
 }
 
 html,

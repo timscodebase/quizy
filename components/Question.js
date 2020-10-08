@@ -52,7 +52,6 @@ export default function Question({
   question,
   incrementScore,
   nextQuestion,
-  number,
 }) {
   const [isCorrect, setIsCorrect] = useState(null);
 
@@ -69,13 +68,12 @@ export default function Question({
   return (
     <StyledQuestion>
       {displayIfCorrect(isCorrect)}
-      <span className="question-number">{number}</span>
       <Formik
         initialValues={{}}
         onSubmit={(values, actions) => {
           actions.setSubmitting(true);
           if (values.answer[0] === correct_answer) {
-            incrementScore;
+            incrementScore();
             setIsCorrect(true);
             setTimeout(() => {
               nextQuestion();
