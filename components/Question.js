@@ -6,7 +6,6 @@ import Correct from "../components/Correct";
 import Incorrect from "../components/Incorrect";
 
 const StyledQuestion = styled.div`
-  width: 500px;
   margin: 0 auto;
   padding: 3rem 1em 1em 1em;
   position: relative;

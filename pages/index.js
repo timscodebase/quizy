@@ -1,28 +1,11 @@
 import Head from "next/head";
 import { useState } from "react";
 import { useFormik } from "formik";
-import styled from "styled-components";
 
 import Quiz from "../components/Quiz";
 
-import styles from "../styles/App.module.css";
-
-const Form = styled.form`
-  margin: 0 auto;
-  padding: 3rem 1em 1em 1em;
-
-  label {
-    display: block;
-    width: 100%;
-  }
-
-  input,
-  select {
-    width: 100%;
-    padding: 1em;
-    margin: 0.5em 0;
-  }
-`;
+import AppStyles from "../styles/App.module.css";
+import FormStyles from "../styles/Form.module.css";
 
 export default function Home() {
   const [started, setStarted] = useState(false);
@@ -53,19 +36,19 @@ export default function Home() {
   ];
 
   return (
-    <div className={styles.container}>
+    <div className={AppStyles.container}>
       <Head>
         <title>Create Next App</title>
         <link rel="icon" href="/favicon.ico" />
       </Head>
 
-      <main className={styles.main}>
+      <main className={AppStyles.main}>
         {started ? (
           <Quiz {...formConfig} />
         ) : (
           <>
-            <h1 className={styles.title}>Let's get Quizy</h1>
-            <Form onSubmit={formik.handleSubmit}>
+            <h1 className={AppStyles.title}>Let's get Quizy</h1>
+            <form className={FormStyles.form} onSubmit={formik.handleSubmit}>
               <label htmlFor="amount">How many question do you want?</label>
               <input
                 id="amount"
@@ -102,10 +85,10 @@ export default function Home() {
                 <option value="medium">Medium</option>
                 <option value="hard">Hard</option>
               </select>
-              <button className={styles.button} type="submit">
+              <button className={AppStyles.button} type="submit">
                 Start
               </button>
-            </Form>
+            </form>
           </>
         )}
       </main>
