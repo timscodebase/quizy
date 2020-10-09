@@ -21,7 +21,6 @@ const Form = styled.form`
     width: 100%;
     padding: 1em;
     margin: 0.5em 0;
-  }idth: 90%;
   }
 `;
 
