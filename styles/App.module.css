@@ -30,20 +30,15 @@
 .footer {
   width: 100%;
   height: 70px;
+  padding-top: 2em;
   font-weight: 600;
-  color: var(--bg-color);
-  background-color: var(--accent-color);
   text-align: center;
+  color: var(--tx-color);
+  border-top: 1p solid var(--accent-color-faded);
 }
 
 .footerSpan {
   width: auto;
-}
-
-.footer a {
-  /* display: flex;
-  justify-content: center;
-  align-items: center; */
 }
 
 @media (max-width: 1000px) {
