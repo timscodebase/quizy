@@ -3,13 +3,11 @@ import styled from "styled-components";
 const StyledIncorrect = styled.div`
   width: 2em;
   height: 2em;
-  padding: 0.5em;
   position: absolute;
   display: grid;
-  justify-content: center;
-  align-items: center;
-  top: 0.5em;
-  right: 0.5em;
+  place-items: center;
+  top: -1.2em;
+  right: 0.2em;
   font-size: 1.5em;
   color: var(--bg-color);
   background-color: var(--accent-color);

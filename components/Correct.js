@@ -1,14 +1,13 @@
 import styled from "styled-components";
 
 const StyledCorrect = styled.div`
-  width: 2.5em;
-  height: 2.5em;
+  width: 2em;
+  height: 2em;
   position: absolute;
   display: grid;
-  justify-content: center;
-  align-items: center;
-  top: 0.5em;
-  right: 0.5em;
+  place-items: center;
+  top: -1.2em;
+  right: 0.2em;
   font-size: 1.5em;
   color: var(--bg-color);
   background-color: var(--success-color);

@@ -5,6 +5,9 @@
   --accent-color: #f3003d;
   --warning-color: #f3db00;
   --success-color: #82f300;
+  --accent-color-faded: #f3003d69;
+  --warning-color-faded: #f3db0069;
+  --success-color-faded: #82f30069;
 }
 
 html,
@@ -24,4 +27,9 @@ a {
 
 * {
   box-sizing: border-box;
+}
+
+h2,
+h3 {
+  margin: 0;
 }

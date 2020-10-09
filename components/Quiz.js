@@ -1,29 +1,10 @@
 import { useState, useEffect } from "react";
 import { BounceLoader } from "react-spinners";
-import styled from "styled-components";
 
-const FinalScore = styled.p`
-  margin: -5px 0;
-  color: ${(props) =>
-    props.score < 60
-      ? "var(--primary-color)"
-      : props.score < 80
-      ? "var(--warning-color)"
-      : "var(--success-color)"};
-  font-weight: bold;
-  font-size: ${(props) =>
-    props.score < 70 ? "3em" : props.score < 90 ? "3.5em" : "4em"};
+// FinalScore Styles
+import { FinalScore, Title } from "./styles/QuizStyles";
 
-  @supports (-webkit-text-stroke: 1px black) {
-    -webkit-text-stroke: 1px rgba(0, 0, 0, 0.5);
-    -webkit-text-fill-color: ${(props) =>
-      props.score < 60
-        ? "var(--primary-color)"
-        : props.score < 80
-        ? "var(--warning-color)"
-        : "var(--success-color)"};
-  }
-`;
+import shuffle from "../lib/shuffle";
 
 import Question from "../components/Question";
 
@@ -48,8 +29,8 @@ export default function Quiz({ amount, category, difficulty }) {
       const result = await fetch(url)
         .then((response) => response.json())
         .then((data) => {
-          console.log("Success:", data.results);
-          setQuestions(data.results);
+          console.log("Shuffle:", shuffle(data.results));
+          setQuestions(shuffle(data.results));
         })
         .catch((err) => {
           console.error("Error:", err);
@@ -69,11 +50,17 @@ export default function Quiz({ amount, category, difficulty }) {
         <div>Error occured.</div>
       ) : questionNumber < questions.length ? (
         <>
-          <h2>{questions[questionNumber].category}</h2>
-          <h3>
-            Question {questionNumber + 1} of {questions.length}
-          </h3>
-          <p>{questions[questionNumber].difficulty}</p>
+          <Title difficulty={questions[questionNumber].difficulty}>
+            <div className="info">
+              <h2>{questions[questionNumber].category}</h2>
+              <h3>
+                Question {questionNumber + 1} of {questions.length}
+              </h3>
+            </div>
+            <div className="difficulty">
+              <p>{questions[questionNumber].difficulty}</p>
+            </div>
+          </Title>
           <Question
             key={questionNumber}
             correct_answer={questions[questionNumber].correct_answer}

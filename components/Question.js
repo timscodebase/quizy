@@ -2,15 +2,24 @@ import { useState } from "react";
 import styled from "styled-components";
 import { Formik, Field } from "formik";
 
+// Library Functions
+import shuffle from "../lib/shuffle";
+
+// Custom Functions
 import Correct from "../components/Correct";
 import Incorrect from "../components/Incorrect";
 
 const StyledQuestion = styled.div`
+  width: 100%;
   margin: 0 auto;
-  padding: 3rem 1em 1em 1em;
+  padding: 1em;
   position: relative;
   border: 1px solid var(--border);
   border-radius: 4px;
+
+  h3 {
+    margin-bottom: 0.5em;
+  }
 
   .label {
     display: block;
@@ -63,7 +72,11 @@ export default function Question({
     }
   };
 
+  // Un-shuffled Answers
   const answers = incorrect_answers.concat(correct_answer);
+  // Shuffled Answers
+  const shuffledAnswers = shuffle(answers);
+
   return (
     <StyledQuestion>
       {displayIfCorrect(isCorrect)}
@@ -90,7 +103,7 @@ export default function Question({
           <form>
             <h3>{question}</h3>
             <div role="group" aria-labelledby="checkbox-group">
-              {answers.map((answer) => (
+              {shuffledAnswers.map((answer) => (
                 <label
                   key={answer}
                   className="label"
