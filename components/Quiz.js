@@ -1,11 +1,14 @@
+import PropTypes from "prop-types";
 import { useState, useEffect } from "react";
 import { BounceLoader } from "react-spinners";
 
-// FinalScore Styles
+// Styles
 import { FinalScore, Title } from "./styles/QuizStyles";
 
+// Library Functions
 import shuffle from "../lib/shuffle";
 
+// Custom Components
 import Question from "../components/Question";
 
 export default function Quiz({ amount, category, difficulty }) {
@@ -15,8 +18,8 @@ export default function Quiz({ amount, category, difficulty }) {
   const [score, setScore] = useState(0);
   const [questionNumber, setQuestionNumber] = useState(0);
 
+  // Query URL
   const url = `https://opentdb.com/api.php?amount=${amount}&category=${category}&difficulty=${difficulty}`;
-  console.log(url);
 
   function nextQuestion() {
     setQuestionNumber(questionNumber + 1);
@@ -29,7 +32,6 @@ export default function Quiz({ amount, category, difficulty }) {
       const result = await fetch(url)
         .then((response) => response.json())
         .then((data) => {
-          console.log("Shuffle:", shuffle(data.results));
           setQuestions(shuffle(data.results));
         })
         .catch((err) => {
@@ -75,10 +77,16 @@ export default function Quiz({ amount, category, difficulty }) {
           <h2>All Done!</h2>
           <h3>Here is your final score</h3>
           <FinalScore score={(score / questions.length) * 100}>
-            {(score / questions.length) * 100}%
+            {Math.round((score / questions.length) * 100)}%
           </FinalScore>
         </div>
       ) : null}
     </>
   );
 }
+
+Quiz.propTypes = {
+  amount: PropTypes.number,
+  category: PropTypes.number,
+  difficulty: PropTypes.string,
+};

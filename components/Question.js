@@ -1,58 +1,15 @@
+import PropTypes from "prop-types";
 import { useState } from "react";
-import styled from "styled-components";
 import { Formik, Field } from "formik";
+
+// Styles
+import { StyledQuestion } from "./styles/QuizStyles";
 
 // Library Functions
 import shuffle from "../lib/shuffle";
 
-// Custom Functions
-import Correct from "../components/Correct";
-import Incorrect from "../components/Incorrect";
-
-const StyledQuestion = styled.div`
-  width: 100%;
-  margin: 0 auto;
-  padding: 1em;
-  position: relative;
-  border: 1px solid var(--border);
-  border-radius: 4px;
-
-  h3 {
-    margin-bottom: 0.5em;
-  }
-
-  .label {
-    display: block;
-    position: relative;
-    width: 100%;
-    padding: 0.5em;
-    padding-left: 1rem;
-    margin-bottom: 0.5em;
-    user-select: none;
-    cursor: pointer;
-    border: 1px solid var(--border);
-    border-radius: 4px;
-    background: linear-gradient(
-      135deg,
-      rgba(219, 219, 219, 0) 0%,
-      rgba(150, 150, 150, 0.25) 100%
-    );
-  }
-  .label:hover,
-  .label .checkbox:checked ~ .label {
-    font-weight: 600;
-    color: var(--accent-color);
-    background: linear-gradient(
-      135deg,
-      rgba(0, 0, 0, 0) 0%,
-      rgba(243, 0, 61, 0.25) 100%
-    );
-  }
-
-  .checkbox {
-    display: none;
-  }
-`;
+// Custom Components
+import Flag from "../components/Flag";
 
 export default function Question({
   correct_answer,
@@ -61,16 +18,8 @@ export default function Question({
   incrementScore,
   nextQuestion,
 }) {
+  const [answered, setAnswered] = useState(false);
   const [isCorrect, setIsCorrect] = useState(null);
-
-  const displayIfCorrect = (isCorrect) => {
-    if (isCorrect != null) {
-      if (isCorrect) return <Correct />;
-      return <Incorrect />;
-    } else {
-      return null;
-    }
-  };
 
   // Un-shuffled Answers
   const answers = incorrect_answers.concat(correct_answer);
@@ -79,11 +28,12 @@ export default function Question({
 
   return (
     <StyledQuestion>
-      {displayIfCorrect(isCorrect)}
+      {answered ? <Flag isCorrect={isCorrect} /> : null}
       <Formik
         initialValues={{}}
         onSubmit={(values, actions) => {
           actions.setSubmitting(true);
+          setAnswered(true);
           if (values.answer[0] === correct_answer) {
             incrementScore();
             setIsCorrect(true);
@@ -126,3 +76,11 @@ export default function Question({
     </StyledQuestion>
   );
 }
+
+Question.propTypes = {
+  correct_answer: PropTypes.string,
+  incorrect_answers: PropTypes.array,
+  question: PropTypes.string,
+  incrementScore: PropTypes.func,
+  nextQuestion: PropTypes.func,
+};
