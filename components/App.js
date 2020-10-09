@@ -21,7 +21,7 @@ export default function App() {
 
       <main className={AppStyles.main}>
         {started ? (
-          <Quiz {...formConfig} />
+          <Quiz {...formConfig} setStarted={setStarted} />
         ) : (
           <Welcome setFormConfig={setFormConfig} setStarted={setStarted} />
         )}

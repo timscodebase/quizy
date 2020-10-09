@@ -4,6 +4,7 @@ import { BounceLoader } from "react-spinners";
 
 // Styles
 import { FinalScore, Title } from "./styles/QuizStyles";
+import AppStyles from "../styles/App.module.css";
 
 // Library Functions
 import shuffle from "../lib/shuffle";
@@ -11,7 +12,7 @@ import shuffle from "../lib/shuffle";
 // Custom Components
 import Question from "../components/Question";
 
-export default function Quiz({ amount, category, difficulty }) {
+export default function Quiz({ amount, category, difficulty, setStarted }) {
   const [questions, setQuestions] = useState([]);
   const [loading, setLoading] = useState(true);
   const [hasError, setHasError] = useState(false);
@@ -79,6 +80,12 @@ export default function Quiz({ amount, category, difficulty }) {
           <FinalScore score={(score / questions.length) * 100}>
             {Math.round((score / questions.length) * 100)}%
           </FinalScore>
+          <button
+            className={AppStyles.button}
+            onClick={() => setStarted(false)}
+          >
+            Take Another Quiz
+          </button>
         </div>
       ) : null}
     </>
@@ -89,4 +96,5 @@ Quiz.propTypes = {
   amount: PropTypes.number,
   category: PropTypes.number,
   difficulty: PropTypes.string,
+  setStarted: PropTypes.func,
 };
