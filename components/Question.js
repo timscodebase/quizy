@@ -1,6 +1,7 @@
 import PropTypes from "prop-types";
 import { useState } from "react";
 import { Formik, Field } from "formik";
+import ReactHtmlParser from "html-react-parser";
 
 // Styles
 import { StyledQuestion } from "./styles/QuizStyles";
@@ -51,7 +52,7 @@ export default function Question({
       >
         {(props) => (
           <form>
-            <h3>{question}</h3>
+            <h3>{ReactHtmlParser(question)}</h3>
             <div role="group" aria-labelledby="checkbox-group">
               {shuffledAnswers.map((answer) => (
                 <label
@@ -65,7 +66,7 @@ export default function Question({
                     name="answer"
                     value={answer}
                   />
-                  {answer}
+                  {ReactHtmlParser(answer)}
                 </label>
               ))}
             </div>

@@ -15,7 +15,7 @@ export default function App() {
   return (
     <>
       <Head>
-        <title>Create Next App</title>
+        <title>Lets Get Quizy</title>
         <link rel="icon" href="/favicon.ico" />
       </Head>
 

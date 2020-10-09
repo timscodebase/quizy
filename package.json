@@ -13,6 +13,7 @@
     "@fortawesome/free-solid-svg-icons": "^5.15.1",
     "@fortawesome/react-fontawesome": "^0.1.11",
     "formik": "^2.1.7",
+    "html-react-parser": "^0.14.0",
     "next": "9.5.3",
     "prop-types": "^15.7.2",
     "react": "16.13.1",
