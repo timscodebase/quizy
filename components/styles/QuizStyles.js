@@ -78,7 +78,6 @@ export const Title = styled.header`
 export const StyledQuestion = styled.div`
   min-width: 700px;
   max-width: 700px;
-  margin: 0 auto;
   padding: 1em;
   position: relative;
   border: 1px solid var(--border);

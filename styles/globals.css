@@ -1,7 +1,8 @@
 :root {
-  --bg-color: #eaeaea;
+  --bg-color: #141c8b;
   --tx-color: #222222;
   --border: #777777;
+  --blue: #2f3e5f;
   --accent-color: #f3003d;
   --warning-color: #f3db00;
   --success-color: #82f300;
@@ -12,12 +13,64 @@
 
 html,
 body {
+  position: relative;
   padding: 0;
   margin: 0;
   font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen,
     Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif;
   background-color: var(--bg-color);
-  color: var(--tx-color);
+  color: #eee;
+}
+
+h1 {
+  width: 100%;
+}
+
+label {
+  position: relative;
+  margin: 0.5rem 0;
+  z-index: 2;
+  text-align: center;
+}
+
+input {
+  color: #eee;
+  margin: 0 !important;
+  border: none;
+  outline: none;
+  user-select: none;
+  padding: 0 1em 0 0;
+  font-family: inherit;
+  font-size: inherit;
+  border-radius: 10px;
+  border: 2px solid var(--warning-color);
+  background-color: rgba(255, 255, 255, 0.05);
+}
+
+select {
+  color: #eee;
+  display: grid;
+  justify-self: end;
+  grid-template-areas: "select";
+  appearance: none;
+  padding: 0 1em 0 0;
+  margin: 0;
+  width: 100%;
+  font-family: inherit;
+  font-size: inherit;
+  cursor: inherit;
+  line-height: inherit;
+  border-radius: 10px;
+  border: 2px solid var(--warning-color);
+  background-color: rgba(255, 255, 255, 0.05);
+}
+select::after {
+  content: "";
+  width: 0.8em;
+  height: 0.5em;
+  background-color: var(--blue);
+  clip-path: polygon(100% 0%, 0 0%, 50% 100%);
+  justify-self: end;
 }
 
 a {

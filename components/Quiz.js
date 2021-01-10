@@ -1,6 +1,9 @@
 import PropTypes from "prop-types";
 import { useState, useEffect } from "react";
 import { BounceLoader } from "react-spinners";
+import useWindowSize from 'react-use/lib/useWindowSize';
+import Confetti from 'react-confetti';
+
 
 // Styles
 import { FinalScore, Title } from "./styles/QuizStyles";
@@ -17,7 +20,10 @@ export default function Quiz({ amount, category, difficulty, setStarted }) {
   const [loading, setLoading] = useState(true);
   const [hasError, setHasError] = useState(false);
   const [score, setScore] = useState(0);
+  const [ confetti, setConfetti] = useState(0);
   const [questionNumber, setQuestionNumber] = useState(0);
+  const { width, height } = useWindowSize();
+
 
   // Query URL
   const url = `https://opentdb.com/api.php?amount=${amount}&category=${category}&difficulty=${difficulty}`;
@@ -25,6 +31,10 @@ export default function Quiz({ amount, category, difficulty, setStarted }) {
   function nextQuestion() {
     setQuestionNumber(questionNumber + 1);
   }
+
+  useEffect(() => {
+    setConfetti((score / questions.length) * 200)
+  }, [score])
 
   useEffect(() => {
     const fetchData = async () => {
@@ -48,11 +58,11 @@ export default function Quiz({ amount, category, difficulty, setStarted }) {
   return (
     <>
       {loading ? (
-        <BounceLoader />
+        <BounceLoader color='#f3db00'   />
       ) : hasError ? (
         <div>Error occured.</div>
       ) : questionNumber < questions.length ? (
-        <>
+        <div className={AppStyles.quizWrapper}>
           <Title difficulty={questions[questionNumber].difficulty}>
             <div className="info">
               <h2>{questions[questionNumber].category}</h2>
@@ -72,20 +82,27 @@ export default function Quiz({ amount, category, difficulty, setStarted }) {
             incrementScore={() => setScore(score + 1)}
             nextQuestion={nextQuestion}
           />
-        </>
+        </div>
       ) : questionNumber >= questions.length ? (
-        <div>
-          <h2>All Done!</h2>
-          <h3>Here is your final score</h3>
-          <FinalScore score={(score / questions.length) * 100}>
-            {Math.round((score / questions.length) * 100)}%
-          </FinalScore>
-          <button
-            className={AppStyles.button}
-            onClick={() => setStarted(false)}
-          >
-            Take Another Quiz
-          </button>
+        <div className={AppStyles.endWrapper}>
+          <Confetti
+            width={width}
+            height={height}
+            numberOfPieces={confetti}
+          />
+          <div>
+            <h2>All Done!</h2>
+            <h3>Here is your final score</h3>
+            <FinalScore score={(score / questions.length) * 100}>
+              {Math.round((score / questions.length) * 100)}%
+            </FinalScore>
+            <button
+              className={AppStyles.button}
+              onClick={() => setStarted(false)}
+            >
+              Take Another Quiz
+            </button>
+          </div>
         </div>
       ) : null}
     </>

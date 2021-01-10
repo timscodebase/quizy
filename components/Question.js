@@ -35,18 +35,17 @@ export default function Question({
         onSubmit={(values, actions) => {
           actions.setSubmitting(true);
           setAnswered(true);
+          
           if (values.answer[0] === correct_answer) {
             incrementScore();
             setIsCorrect(true);
-            setTimeout(() => {
-              nextQuestion();
-            }, 800);
           } else {
             setIsCorrect(false);
-            setTimeout(() => {
-              nextQuestion();
-            }, 800);
           }
+
+          setTimeout(() => {
+            nextQuestion();
+          }, 800);
           actions.setSubmitting(false);
         }}
       >
